@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { getAllPostsService } from '../../services/postsServices';
-import PostsList from '../../components/posts/PostsList';
-import { CircularProgress, Heading, Stack, useToast } from '@chakra-ui/react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useState, useEffect } from "react";
+import { getAllPostsService } from "../../services/postsServices";
+import PostsList from "../../components/posts/PostsList";
+import { CircularProgress, Heading, Stack, useToast } from "@chakra-ui/react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);
@@ -26,8 +26,8 @@ function FeedPage() {
       .catch((err) =>
         toast({
           description: err.response?.data?.message || err.message,
-          title: 'Loading posts failed',
-          status: 'error',
+          title: "Loading posts failed",
+          status: "error",
         })
       )
       .finally(() => setIsLoading(false));
@@ -49,6 +49,7 @@ function FeedPage() {
 
   return (
     <div>
+      {isLoading && <CircularProgress />}
       <Heading mb="16px">Feed</Heading>
 
       <InfiniteScroll

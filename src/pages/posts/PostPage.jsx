@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Stack, Heading, Text } from '@chakra-ui/react';
-import { getPostDetailsService } from '../../services/postsServices';
-import ParsedMarkdown from '../../components/posts/ParsedMarkdown';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Stack, Heading, Text, CircularProgress } from "@chakra-ui/react";
+import { getPostDetailsService } from "../../services/postsServices";
+import ParsedMarkdown from "../../components/posts/ParsedMarkdown";
 
 function PostPage() {
   const { postId } = useParams();
@@ -12,17 +12,25 @@ function PostPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getPostDetailsService(postId).then((data) => setPost(data));
+    setIsLoading(true);
+    getPostDetailsService(postId)
+      .then((data) => setPost(data))
+      .finally(() => setIsLoading(false))
+      .catch((err) => setError(err));
   }, [postId]);
 
   return (
     <div>
-      {post && (
+      {isLoading && <CircularProgress />}
+
+      {post && !error ? (
         <Stack>
           <Heading>{post.title}</Heading>
           <Text>by {post.author.fullName}</Text>
           <ParsedMarkdown value={post.body} />
         </Stack>
+      ) : (
+        console.log(error)
       )}
     </div>
   );
