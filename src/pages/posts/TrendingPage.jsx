@@ -1,10 +1,10 @@
-import { getFeedService } from "../../services/postsServices";
+import { getTrendingService } from "../../services/postsServices";
 import PostsList from "../../components/posts/PostsList";
 import { CircularProgress, Heading, Stack } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { usePosts } from "../../hooks/usePosts";
 
-function FeedPage() {
+function TrendingPage() {
   const {
     posts,
     isLoading,
@@ -13,7 +13,7 @@ function FeedPage() {
     likePost,
     activePage,
     deletePost,
-  } = usePosts(getFeedService);
+  } = usePosts(getTrendingService);
   return (
     <div>
       {isLoading && <CircularProgress />}
@@ -36,4 +36,4 @@ function FeedPage() {
   );
 }
 
-export default FeedPage;
+export default TrendingPage;
