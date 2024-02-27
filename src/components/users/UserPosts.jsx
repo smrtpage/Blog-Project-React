@@ -33,7 +33,7 @@ function UserPosts({ userId }) {
 }
 
 UserPosts.propTypes = {
-  userId: PropTypes.number,
+  userId: PropTypes.string,
 };
 
 export default UserPosts;
